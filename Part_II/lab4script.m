@@ -2,7 +2,6 @@ clear;
 close all;
 load model_matrix_data.mat % Contains State space model matrices from previous LAB 
 
-sys=ss(A,B,C,D,Ts);
 %Sampling time
 Ts=0.02;
 
@@ -29,6 +28,10 @@ Ny = N_matrix(end,:);
 N = Ny+K*Nx;
 
 sim('lab_cc_controlador');
+
+%calculate plants transfer function
+sys=ss(A,B,C,D,Ts);
+
 
 %% Plots
 figure;
