@@ -1,0 +1,37 @@
+clear;
+load('models.mat');
+
+p90_sq=p90(5:9,:);
+indsq=find(p90_sq);
+[sub(:,1),sub(:,2)]=ind2sub([5,63],indsq);
+sub(:,1)=sub(:,1)+4;
+
+obtain_models_t
+
+avg_models=mean(fit_model');
+[~,index]=max(avg_models);
+
+%%
+
+%load('order.mat');
+%load('ord_avg.mat');
+%load('sub.mat');
+[ord_avg(:,1),ord_avg(:,2)]=sort(avg_models);
+
+clc
+fid=fopen('models90.53.txt','wt');
+for i=1:298
+    if ord_avg(i,1) > 90.53
+        a=sub(ord_avg(i,2),2);
+        col=ord_avg(i,2);
+        if N(1,a) <= 6 && N(2,a)<=3 && N(3,a)<=6
+            fprintf(fid,'model %d \n model fit = %2f \n' , ord_avg(i,2), ord_avg(i,1));
+            fprintf(fid,'dataset %d \n' ,sub(ord_avg(i,2),1));
+            fprintf(fid,'na = %d \n' , N(1,a));
+            fprintf(fid,'nb = %d \n' , N(2,a));
+            fprintf(fid,'nc = %d \n' , N(3,a));
+        end
+    end    
+end
+      
+disp('end')
