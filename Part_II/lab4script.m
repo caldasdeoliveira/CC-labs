@@ -29,8 +29,8 @@ N = Ny+K*Nx;
 
 sim('lab_cc_controlador');
 
-%calculate plants transfer function
-sys=ss(A,B,C,D,Ts);
+%calculate plants states space
+sys_ss=ss(A,B,C,D,Ts);
 
 
 %% Plots
