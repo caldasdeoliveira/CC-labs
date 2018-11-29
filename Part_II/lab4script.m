@@ -8,7 +8,7 @@ Ts=0.02;
 R=100; % Start value
 Q=C'*C;
 G=eye(length(A));
-I=eye(5);
+I=eye(size(A));
 
 %LQ gain computation
 [K,S,E] = dlqr(A,B,Q,R);
