@@ -1,6 +1,6 @@
 clear;
 close all;
-load model_matrix_data424.mat % Contains State space model matrices from previous LAB 
+load model_matrix_data.mat % Contains State space model matrices from previous LAB 
 
 %Sampling time
 Ts=0.02;
