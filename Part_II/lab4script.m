@@ -1,11 +1,12 @@
 clear;
 close all;
-load model_matrix_data.mat % Contains State space model matrices from previous LAB 
+load('../Part_I/modelestimation/ke_kp.mat')
+load('selected_models/model_matrix_data.mat') % Contains State space model matrices from previous LAB 
 
 %Sampling time
 Ts=0.02;
 
-R=100; % Start value
+R=300; % Start value
 Q=C'*C;
 G=eye(length(A));
 I=eye(size(A));
@@ -15,7 +16,7 @@ I=eye(size(A));
 
 %LTR Recovery
 Qw=100*I;
-Rv=1;
+Rv=2.5;
 
 %Kalman filter gain
 [M,P,Z,EE] = dlqe(A,G,C,Qw,Rv);
@@ -29,8 +30,8 @@ N = Ny+K*Nx;
 
 sim('lab_cc_controlador');
 
-%calculate plants states space
-sys_ss=ss(A,B,C,D,Ts);
+%calculate plants transfer function
+sys=ss(A,B,C,D,Ts);
 
 
 %% Plots
@@ -42,6 +43,16 @@ plot(t, y);
 xlabel('Time (s)');
 legend('ref', 'y');
 title(['Reference Tracking with R=' num2str(R)]);
+
+% figure;
+% plot(t, x(:,4));
+% hold on;
+% grid on;
+% plot(t, x_hat(:,4));
+% xlabel('Time (s)');
+% legend('x', 'x\_hat');
+% title(['Reference Tracking with R=' num2str(R)]);
+
 
 figure;
 plot(t, ref);
